@@ -8,16 +8,20 @@ export default function Weather() {
     const [res, setRes] = useState(null);
 
     async function fetchWeatherData(coords) {
-        const response = await fetch(`http://api.weatherapi.com/v1/current.json?key=aa9eeebfd6144c03b10140601242209&q=${coords}&aqi=yes`);
+        const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=aa9eeebfd6144c03b10140601242209&q=${coords}&aqi=yes`);
         if (!response.ok) {
             throw new Error("Weather data not available");
         }
         const data = await response.json();
         setRes(data);
     };
+    console.log(city);
+    console.log(current);
+    console.log(res);
+    
 
     function currentPos(cur_Pos) {
-        fetch(`http://api.weatherapi.com/v1/current.json?key=aa9eeebfd6144c03b10140601242209&q=${cur_Pos}&aqi=yes`)
+        fetch(`https://api.weatherapi.com/v1/current.json?key=aa9eeebfd6144c03b10140601242209&q=${cur_Pos}&aqi=yes`)
             .then(data => data.json())
             .then(data => setCurrent(data))
     }
@@ -55,7 +59,7 @@ export default function Weather() {
         <>
             <div className='h-[90%] w-[95%] rounded-xl absolute flex'>
                 <div className='w-full h-full rounded-lg flex justify-between sm:flex-wrap'>
-                    <div className="w-[64.5%] object-center bg-[url('public/images/I1.jpg')] shadow-[rgba(50,50,93,0.25)_0px_50px_100px_-20px,rgba(0,0,0,0.3)_0px_30px_60px_-30px,_rgba(10,37,64,0.35)_0px_-2px_6px_0px_inset] relative bg-blue-400 rounded-lg bg-cover bg-center bg-no-repeat">
+                    <div className=" weatherbg w-[64.5%] shadow-[rgba(50,50,93,0.25)_0px_50px_100px_-20px,rgba(0,0,0,0.3)_0px_30px_60px_-30px,_rgba(10,37,64,0.35)_0px_-2px_6px_0px_inset] relative bg-blue-400 rounded-lg bg-cover bg-center bg-no-repeat">
                         <div className='h-[15%] pr-2 pl-1 m-1 rounded-md flex justify-between items-center' >
                             <div className=' pl-1 flex flex-col items-center relative font-bold text-3xl tracking-wide text-white'>
                                 <h1 className='text-opacity-50 text-white'>Weat<span className='text-red-400'>her</span></h1>

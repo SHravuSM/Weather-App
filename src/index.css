@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+
+.weatherbg{
+ background:url('./components/images/I1.jpg');
+ object-fit: contain;
+ background-repeat: no-repeat;
+ background-origin: border-box;
+ /* width: px; */
+}
+
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
