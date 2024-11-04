@@ -1,20 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { TbLocationSearch } from "react-icons/tb";
 import { TbLocationFilled } from "react-icons/tb";
-import { CiLocationOff } from "react-icons/ci";
 
 export default function Weather() {
     const [city, setCity] = useState();
     const [current, setCurrent] = useState('')
     const [res, setRes] = useState(null);
-    // const [err, setErr] = useState(null);
-    // const [clone, setClone] = useState({})
-    // async function clone() {
-    // let a = await JSON.parse(JSON.stringify(res.current.air_quality));
-    // let {us-epa-index : usindex} = a
-    // console.log(us-e);
-
-
 
     async function fetchWeatherData(coords) {
         const response = await fetch(`http://api.weatherapi.com/v1/current.json?key=aa9eeebfd6144c03b10140601242209&q=${coords}&aqi=yes`);
@@ -23,8 +14,6 @@ export default function Weather() {
         }
         const data = await response.json();
         setRes(data);
-        // setErr(null);
-
     };
 
     function currentPos(cur_Pos) {
@@ -37,14 +26,9 @@ export default function Weather() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
-                    // console.log(position);
-
                     const { latitude, longitude } = position.coords;
                     fetchWeatherData(`${latitude},${longitude}`);
                     currentPos(`${latitude},${longitude}`)
-                    // function currentPos (){
-                    //     setCurrent() 
-                    // }
                 },
                 (error) => {
                     setErr("Unable to retrieve your location");
@@ -56,16 +40,6 @@ export default function Weather() {
             fetchWeatherData(city);
         }
     }, []);
-
-
-
-    // setClone(()=>{
-    // return structuredClone(res.current.air_quality)
-    // })
-    // console.log(res.current.air_quality.us-epa-)
-    // useEffect(()=>{
-    //     setCurrent()
-    // },[])
 
     const handleCity = (e) => {
         setCity(e.target.value);
@@ -129,8 +103,6 @@ export default function Weather() {
                                         <img className='w-24' src={res ? res.current.condition.icon : 'sorry'} alt="Weather condition icon" />
                                         <h1 className=' text-[18xl] overflow-x-hidden text-center font-normal text-black'>{res ? res.current.condition.text : " "}</h1>
                                         <h6 className='text-center font-sans text-xs text-black font-medium'>{res ? `${res.location.region}, ${res.location.country.toUpperCase()}` : ' '}</h6>
-
-                                        {/* <span className='absolute bottom-2 right-4 text-center font-mono text-sm text-slate-700 font-bold'>{res ? res.location.localtime : ' '}</span> */}
                                     </div>
 
                                     <div className='w-[2px] rounded-[20%] h-4/5 bg-gray-500'><hr /></div>
@@ -157,8 +129,6 @@ export default function Weather() {
                                 <h1>NO<sub>2</sub>: {res ? res.current.air_quality.no2 : " "}µg/m³</h1>
                                 <h1>SO<sub>3</sub>: {res ? res.current.air_quality.so2 : " "}µg/m³</h1>
                             </div>
-                            {/* <h1>U.S. EPA Air Quality Index : {res ? res.current.air_quality.usepaindex : " "}AQI</h1> */}
-
 
                         </div></> : <div className='rounded-md flex items-center justify-center w-full h-2/5 bg-white'>
                             <img className='h-24 w-24 object-cover' src="https://cdn-icons-png.flaticon.com/512/11119/11119962.png" alt="" />
@@ -170,8 +140,3 @@ export default function Weather() {
         </>
     );
 }
-
-
-
-// shadow-[rgba(50,50,93,0.25)_0px_50px_100px_-20px,rgba(0,0,0,0.3)_0px_30px_60px_-30px,_rgba(10,37,64,0.35)_0px_-2px_6px_0px_inset]
-// shadow-[0px_0px_10px_3px_rgba(0,0,0,0.3)]
